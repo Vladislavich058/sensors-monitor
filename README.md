@@ -23,12 +23,8 @@
      11. Запустите команду npm start
      12. Приложение доступно по порту 4200.
 
-Начальные данные для админа:
-  username: admin
-  password: admin
-Начальные для пользователя:
-  username: user
-  password: user
+Начальные данные для админа: (username: admin, password: admin)
+Начальные для пользователя: (username: user, password: user)
 
 P.S. Данные пользователей задаются в init.sql.
 P.P.S Возможные проблемы при развертывании приложения, связанные с mvn решаются изменением line endings с CRLF на LF (for Windows users)
