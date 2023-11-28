@@ -1,5 +1,7 @@
 package com.sensors.controllers;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -10,7 +12,6 @@ import com.sensors.dtos.AuthDTO;
 import com.sensors.dtos.UserDTO;
 import com.sensors.services.LoginService;
 
-import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("/api")

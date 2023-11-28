@@ -1,5 +1,7 @@
 package com.sensors.controllers;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,8 +20,6 @@ import com.sensors.exceptions.NotFoundException;
 import com.sensors.exceptions.SensorAlreadyExistsException;
 import com.sensors.services.AdminService;
 import com.sensors.services.SensorService;
-
-import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("/api/admin")

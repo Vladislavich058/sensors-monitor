@@ -56,13 +56,12 @@ public class SecurityConfig {
 
 	@Bean
 	SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-		http.csrf(AbstractHttpConfigurer::disable).cors(withDefaults())
-				.exceptionHandling(exception -> exception.authenticationEntryPoint(exceptionHandler))
-				.sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-				.authorizeHttpRequests(auth -> auth.requestMatchers("/api/admin/**").hasRole("ADMIN")
-						.requestMatchers("/api/viewer/**").hasRole("VIEWER").anyRequest().permitAll())
-				.authenticationProvider(authenticationProvider())
-				.addFilterBefore(authenticationFilter, UsernamePasswordAuthenticationFilter.class);
+        http.csrf(AbstractHttpConfigurer::disable).cors(withDefaults())
+                .exceptionHandling(exception -> exception.authenticationEntryPoint(exceptionHandler))
+                .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+                .authenticationProvider(authenticationProvider()).authorizeRequests(requests -> requests.antMatchers("/api/admin/**")
+                .hasRole("ADMIN").antMatchers("/api/viewer/**").hasRole("VIEWER").anyRequest().permitAll())
+                .addFilterBefore(authenticationFilter, UsernamePasswordAuthenticationFilter.class);
 
 		return http.build();
 	}
