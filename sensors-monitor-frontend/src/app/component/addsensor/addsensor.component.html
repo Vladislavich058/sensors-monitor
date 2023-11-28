@@ -1,0 +1,216 @@
+<form [formGroup]="sensorForm" (ngSubmit)="saveSensor()">
+  <mat-card class="p-5">
+    <mat-card-header class="text-xl">
+      {{ title }}
+    </mat-card-header>
+    <mat-card-content class="mt-5 flex flex-col">
+      <mat-form-field *ngIf="isEdit">
+        <mat-label>Id</mat-label>
+        <input formControlName="id" matInput />
+      </mat-form-field>
+      <mat-form-field class="w-full">
+        <mat-label>Name</mat-label>
+        <input formControlName="name" matInput />
+      </mat-form-field>
+      <div
+        class="text-red-500 text-sm -mt-4 mb-2"
+        *ngIf="
+            sensorForm.controls['name'].errors?.['required'] &&
+            (sensorForm.controls['name'].dirty ||
+              sensorForm.controls['name'].touched)
+          "
+      >
+        Name is required!
+      </div>
+      <div
+        class="text-red-500 text-sm -mt-4 mb-2"
+        *ngIf="
+          sensorForm.controls['name'].errors?.['maxLength'] &&
+          (sensorForm.controls['name'].dirty ||
+            sensorForm.controls['name'].touched)
+          "
+      >
+        Max length 30 symbols!
+      </div>
+      <mat-form-field class="w-full">
+        <mat-label>Model</mat-label>
+        <input formControlName="model" matInput />
+      </mat-form-field>
+      <div
+        class="text-red-500 text-sm -mt-4 mb-2"
+        *ngIf="
+            sensorForm.controls['model'].errors?.['required'] &&
+            (sensorForm.controls['model'].dirty ||
+              sensorForm.controls['model'].touched)
+          "
+      >
+        Model is required!
+      </div>
+      <div
+        class="text-red-500 text-sm -mt-4 mb-2"
+        *ngIf="
+          sensorForm.controls['model'].errors?.['maxlength'] &&
+          (sensorForm.controls['model'].dirty ||
+            sensorForm.controls['model'].touched)
+          "
+      >
+        Max length 15 symbols!
+      </div>
+      <div class="flex gap-2">
+        <div>
+          <mat-form-field>
+            <mat-label>Range from</mat-label>
+            <input formControlName="startRange" matInput type="number" />
+          </mat-form-field>
+          <div
+            class="text-red-500 text-sm -mt-4 mb-2"
+            *ngIf="
+              sensorForm.controls['startRange'].errors?.['required'] &&
+              (sensorForm.controls['startRange'].dirty ||
+                sensorForm.controls['startRange'].touched)
+            "
+          >
+            Range from is required!
+          </div>
+          <div
+            class="text-red-500 text-sm -mt-4 mb-2"
+            *ngIf="
+            sensorForm.controls['startRange'].errors?.['pattern'] &&
+            (sensorForm.controls['startRange'].dirty ||
+              sensorForm.controls['startRange'].touched)
+            "
+          >
+            Range should contain only numbers!
+          </div>
+        </div>
+        <div>
+          <mat-form-field>
+            <mat-label>Range to</mat-label>
+            <input formControlName="endRange" matInput type="number" />
+          </mat-form-field>
+          <div
+            class="text-red-500 text-sm -mt-4 mb-2"
+            *ngIf="
+              sensorForm.controls['endRange'].errors?.['required'] &&
+              (sensorForm.controls['endRange'].dirty ||
+                sensorForm.controls['endRange'].touched)
+            "
+          >
+            Range to is required!
+          </div>
+          <div
+            class="text-red-500 text-sm -mt-4 mb-2"
+            *ngIf="
+            sensorForm.controls['endRange'].errors?.['pattern'] &&
+            (sensorForm.controls['endRange'].dirty ||
+              sensorForm.controls['endRange'].touched)
+            "
+          >
+            Range should contain only numbers!
+          </div>
+        </div>
+      </div>
+      <div
+        class="text-red-500 text-sm -mt-4 mb-2"
+        *ngIf="sensorForm.hasError('lessThanValidator')"
+      >
+        Range from should be less than Range to!
+      </div>
+      <mat-form-field class="w-full">
+        <mat-label>Type</mat-label>
+        <mat-select formControlName="type" [compareWith]="compareObjects">
+          <mat-option *ngFor="let item of typeList" [value]="item">
+            {{ item.name }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <div
+        class="text-red-500 text-sm -mt-4 mb-2"
+        *ngIf="
+          sensorForm.controls['type'].errors?.['emptyObject'] &&
+          (sensorForm.controls['type'].dirty ||
+            sensorForm.controls['type'].touched)
+        "
+      >
+        Type is required!
+      </div>
+      <mat-form-field class="w-full">
+        <mat-label>Unit</mat-label>
+        <mat-select formControlName="unit" [compareWith]="compareObjects">
+          <mat-option *ngFor="let item of unitList" [value]="item">
+            {{ item.name }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <div
+        class="text-red-500 text-sm -mt-4 mb-2"
+        *ngIf="
+          sensorForm.controls['unit'].errors?.['emptyObject'] &&
+          (sensorForm.controls['unit'].dirty ||
+            sensorForm.controls['unit'].touched)
+        "
+      >
+        Unit is required!
+      </div>
+      <mat-form-field class="w-full">
+        <mat-label>Location</mat-label>
+        <input formControlName="location" matInput />
+      </mat-form-field>
+      <div
+        class="text-red-500 text-sm -mt-4 mb-2"
+        *ngIf="
+            sensorForm.controls['location'].errors?.['required'] &&
+            (sensorForm.controls['location'].dirty ||
+              sensorForm.controls['location'].touched)
+          "
+      >
+        Location is required!
+      </div>
+      <div
+        class="text-red-500 text-sm -mt-4 mb-2"
+        *ngIf="
+          sensorForm.controls['location'].errors?.['maxlength'] &&
+          (sensorForm.controls['location'].dirty ||
+            sensorForm.controls['location'].touched)
+          "
+      >
+        Max length 200 symbols!
+      </div>
+      <mat-form-field class="w-full">
+        <mat-label>Description</mat-label>
+        <textarea formControlName="description" matInput></textarea>
+      </mat-form-field>
+      <div
+        class="text-red-500 text-sm -mt-4 mb-2"
+        *ngIf="
+            sensorForm.controls['description'].errors?.['required'] &&
+            (sensorForm.controls['description'].dirty ||
+              sensorForm.controls['description'].touched)
+          "
+      >
+        Description is required!
+      </div>
+      <div
+        class="text-red-500 text-sm -mt-4 mb-2"
+        *ngIf="
+          sensorForm.controls['description'].errors?.['maxlength'] &&
+          (sensorForm.controls['description'].dirty ||
+            sensorForm.controls['description'].touched)
+          "
+      >
+        Max length 15 symbols!
+      </div>
+    </mat-card-content>
+    <mat-card-actions class="flex gap-1">
+      <button
+        mat-raised-button
+        type="submit"
+        color="primary"
+        [disabled]="!sensorForm.valid"
+      >
+        Save
+      </button>
+      <a (click)="closePopup()" mat-raised-button color="accent"> Cancel </a>
+    </mat-card-actions>
+  </mat-card>
+</form>

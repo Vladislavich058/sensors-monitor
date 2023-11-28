@@ -1,0 +1,22 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.successSnackBar {
+  background-color: #00cc00 !important;
+  color: aliceblue !important;
+}
+.successSnackBar button {
+  background-color: #00cc00 !important;
+  color: aliceblue !important;
+  border: none !important;
+}
+.failSnackBar {
+  background-color: #db0000 !important;
+  color: aliceblue !important;
+}
+.failSnackBar button {
+  background-color: #db0000 !important;
+  color: aliceblue !important;
+  border: none !important;
+}
