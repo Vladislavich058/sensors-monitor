@@ -13,7 +13,7 @@
      1. Убедитесь, что у вас установлена jdk 11
      2. Убедитесь, что у вас установлен node.js
      3. Сгенерируйте бд с помощью init.sql
-     4. В application.properties насстройте путь, логин и пароль к БД
+     4. В application.properties настройте путь, логин и пароль к БД
      5. Перейдите в каталог sensors-monitor-backend
      6. Запустите команду mvn clean install
      7. Перейдите в каталог target.
